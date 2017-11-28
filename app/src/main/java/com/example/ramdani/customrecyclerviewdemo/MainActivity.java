@@ -11,15 +11,21 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.ramdani.customrecyclerviewdemo.adapter.BookmarkAdapter;
+import com.example.ramdani.customrecyclerviewdemo.adapter.GenericAdapter;
 import com.example.ramdani.customrecyclerviewdemo.model.Bookmark;
+import com.example.ramdani.customrecyclerviewdemo.viewholder.BookmarkViewHolder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "BOOKMARK_CLICK";
     ArrayList<Bookmark> bookmarks;
     Context context = this;
+
+    GenericAdapter<Bookmark,BookmarkViewHolder> bookmarkViewHolderGenericAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +44,17 @@ public class MainActivity extends AppCompatActivity {
         bookmarks.add(new Bookmark("Belajar Android Dengan Kotlin","Mobile Programming","28 Nov 2017"));
         bookmarks.add(new Bookmark("Belajar React Native","Mobile Programming","28 Nov 2017"));
 
-        BookmarkAdapter bookmarkAdapter = new BookmarkAdapter(this, bookmarks,bookmarClickListener);
+        //BookmarkAdapter bookmarkAdapter = new BookmarkAdapter(this, bookmarks,bookmarClickListener);
+
+        bookmarkViewHolderGenericAdapter = new GenericAdapter<Bookmark, BookmarkViewHolder>(R.layout.custom_list_bookmark,BookmarkViewHolder.class, Bookmark.class,bookmarks) {
+            @Override
+            protected void bind(BookmarkViewHolder holder, Bookmark model) {
+                holder.bind(model, bookmarClickListener);
+            }
+        };
 
         //set adapter
-        rvBookmark.setAdapter(bookmarkAdapter);
+        rvBookmark.setAdapter(bookmarkViewHolderGenericAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
