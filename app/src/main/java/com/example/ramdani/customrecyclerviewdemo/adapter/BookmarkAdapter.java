@@ -22,14 +22,16 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     private Context context;
     private List<Bookmark> mBookmark;
+    private OnBookmarClickListener bookmarClickListener;
 
-    public BookmarkAdapter(Context context, List<Bookmark> mBookmark) {
+    public BookmarkAdapter(Context context, List<Bookmark> mBookmark, OnBookmarClickListener bookmarClickListener) {
         this.context = context;
         this.mBookmark = mBookmark;
+        this.bookmarClickListener = bookmarClickListener;
     }
 
-    public Context getContext(){
-        return context;
+    public interface OnBookmarClickListener {
+        void onItemClick(Bookmark item);
     }
 
     @Override
@@ -47,13 +49,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
         Bookmark bookmark = mBookmark.get(position);
-
-        TextView tvTitleBookmark = holder.titleBookmark;
-
-        tvTitleBookmark.setText(bookmark.getTitle());
-
+        holder.bind(bookmark,bookmarClickListener);
     }
 
     @Override
@@ -70,10 +67,25 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            titleBookmark = (TextView) itemView.findViewById(R.id.tv_title);
-            labelTag = (TextView) itemView.findViewById(R.id.tv_tags);
-            dateUpdate = (TextView) itemView.findViewById(R.id.tv_date_update);
+            titleBookmark = itemView.findViewById(R.id.tv_title);
+            labelTag = itemView.findViewById(R.id.tv_tags);
+            dateUpdate = itemView.findViewById(R.id.tv_date_update);
         }
+
+        public void bind(final Bookmark item, final OnBookmarClickListener listener) {
+
+            titleBookmark.setText(item.getTitle());
+            labelTag.setText(item.getTag());
+            dateUpdate.setText(item.getDateUpdate());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
+
+
 
     }
 }

@@ -10,14 +10,14 @@ import java.util.Date;
 public class Bookmark {
 
     private String title;
-    private String[] tag;
-    private Date dateUpdate;
+    private String tag;
+    private String dateUpdate;
 
     public Bookmark(String title) {
         this.title = title;
     }
 
-    public Bookmark(String title, String[] tag, Date dateUpdate) {
+    public Bookmark(String title, String tag, String dateUpdate) {
         this.title = title;
         this.tag = tag;
         this.dateUpdate = dateUpdate;
@@ -31,19 +31,19 @@ public class Bookmark {
         this.title = title;
     }
 
-    public String[] getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(String[] tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
-    public Date getDateUpdate() {
+    public String getDateUpdate() {
         return dateUpdate;
     }
 
-    public void setDateUpdate(Date dateUpdate) {
+    public void setDateUpdate(String dateUpdate) {
         this.dateUpdate = dateUpdate;
     }
 
