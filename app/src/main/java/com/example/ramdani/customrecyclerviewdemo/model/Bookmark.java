@@ -13,10 +13,6 @@ public class Bookmark {
     private String tag;
     private String dateUpdate;
 
-    public Bookmark(String title) {
-        this.title = title;
-    }
-
     public Bookmark(String title, String tag, String dateUpdate) {
         this.title = title;
         this.tag = tag;
@@ -35,29 +31,9 @@ public class Bookmark {
         return tag;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     public String getDateUpdate() {
         return dateUpdate;
     }
 
-    public void setDateUpdate(String dateUpdate) {
-        this.dateUpdate = dateUpdate;
-    }
 
-    public static int lastBookmarkId = 0;
-
-    public static ArrayList<Bookmark> createBookmarkList(int numBookmark){
-
-        ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
-
-        for (int i = 1; i<= numBookmark; i++){
-            bookmarks.add(new Bookmark("Ini Bookmark "+ ++lastBookmarkId));
-        }
-
-        return bookmarks;
-
-    }
 }
